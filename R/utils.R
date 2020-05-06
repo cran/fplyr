@@ -5,7 +5,8 @@ OpenInput <- function(input, skip) {
         stop("input file cannot be empty.")
 
     if (is.character(input)) {
-        if (grepl(".gz$", input))
+        filetype = summary( file(input) )$class
+        if (filetype == "gzfile")
             input = gzcon(file(input, "rb"))
         else
             input = file(input, "rb")
@@ -45,32 +46,20 @@ GetHeader <- function(input, col.names, header, sep) {
 
 # NOTE: the maximum chunk size is 4GB, after which rawToChar will
 # complain about its lacking support for long vectors.
-DefineFormatter <- function(sep, stringsAsFactors, head, select, drop) {
+DefineFormatter <- function(sep, colClasses, stringsAsFactors, head, select, drop,
+                            max_length = 2147483648) {
     function(chunk) {
         # Define the fread formatter: it reads the raw chunk and returns a
         # mighty data.table. Inspired by mstrsplit and dstrsplit.
-        if (length(chunk) < 2147483648) {
+        if (length(chunk) < max_length) {
             fread(rawToChar(chunk), sep = sep, header = FALSE,
                 stringsAsFactors = stringsAsFactors, col.names = head,
-                select = select, drop = drop,
-                key = head[1])
-        } else if (length(chunk) < 4294967296 - 65536) {
-            gc()
-            nl <- grepRaw("\n", chunk[(2147483648 - 65536):2147483648]) + 2147483648 - 65536 - 1
-            rbind(fread(rawToChar(chunk[1:nl]),
-                                    sep = sep, header = FALSE,
-                                    stringsAsFactors = stringsAsFactors, col.names = head,
-                                    select = select, drop = drop,
-                                    key = head[1]),
-                  fread(rawToChar(chunk[(nl + 1):length(chunk)]),
-                                    sep = sep, header = FALSE,
-                                    stringsAsFactors = stringsAsFactors, col.names = head,
-                                    select = select, drop = drop,
-                                    key = head[1])
-            )
-        } else {
-            warning("The current chunk is too big. Skipping it.")
-            return(NULL)
-        }
+				colClasses = colClasses, select = select, drop = drop)
+		} else {
+			fread(paste0(rawToChar(chunk, multiple = TRUE), collapse = ""),
+				  sep = sep, header = FALSE,
+				  stringsAsFactors = stringsAsFactors, col.names = head,
+				  colClasses = colClasses, select = select, drop = drop)
+		}
     }
 }

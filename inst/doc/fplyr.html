@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>fplyr.utf8</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<div id="fplyr-1.2.0" class="section level1">
+<h1>fplyr 1.2.0</h1>
+<div id="apply-functions-to-blocks-of-files" class="section level2">
+<h2>Apply Functions to Blocks of Files</h2>
+<div id="section" class="section level3">
+<h3>2020-05-06</h3>
+<p>After briefly describing the problem that <code>fplyr</code> tries to solve, this vignette will go through all the functions in the package, explaining their usage. In order to make the most of this package, a certain degree of familiarity with the <code>data.table</code> package is suggested. Often, if one has trouble understanding an option, it will be possible to find detailed help in the manual of <code>data.table</code>’s fread() function. Furthermore, basic acquaintance with the *ply family of functions in R, especially lapply(), will also be helpful. You are encouraged to run the code of this vignette on your own and explore the output of the commands.</p>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>A very common operation when analyzing data is that of splitting the observations into groups and applying a function to each group, separately. So common is this operation, that in R there are at least two functions that implement it: by() and aggregate(). However, using these functions requires that the data be loaded into the RAM, and often the files are too big to fit in the memory. <code>fplyr</code> was born to solve this problem: it allows to perform split-apply-combine operations to very big files; by reading the files chunk by chunk, only a limited number of rows is stored in memory at any given time.</p>
+<p><code>fplyr</code> combines the strengths of two other packages: <code>iotools</code> and <code>data.table</code>. While <code>iotools</code> has some functions, such as chunk.apply(), to apply a function to chunks of files, the chunks may not reflect the actual groups in which the data are partitioned. In particular, a ‘chunk’ may contain observations pertaining to several different groups, and the task of further splitting them is left to the user. In <code>fplyr</code>, on the other hand, the further splitting is done automatically (thanks also to the <code>data.table</code> package), so the user needs not worry about it.</p>
+</div>
+<div id="preconditions" class="section level2">
+<h2>Preconditions</h2>
+<p>Before using <code>fplyr</code> you need to ensure that the input file is in the correct format. First and foremost, the data must be amenable to the split-apply-combine paradigm, so the observations must be grouped according to the value of a certain field. We refer to the values of the ‘groupby’ field as the <em>subjects</em>. Thus, for instance, in the famous <code>iris</code> data set, each species would be a different subject. All the observations pertaining to the same subject constitute a <em>block</em>.</p>
+<p>In <code>fplyr</code> the input file must be formatted in such a way that the first field contains all the subject IDs. If the IDs are not in the first field, it won’t work. Moreover, all the observations referring to the same subject must be consecutive; in other words, the file must be sorted on the first field, the reason being that the file is read block by block. Indeed, the subject ID of one line is compared with that of the previous line, and the reading goes on until the IDs are the same.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Note that <code>fplyr</code> always ensures that all the rows with the same subject ID are read together in the same batch, but only if the rows are consecutive. To make sure that a file complies with these specifications, it is possible to use *nix command-line tools such as <code>awk</code> and <code>sort</code>.</p>
+<p>As an example file, in this vignette we will use a modified version of the <code>iris</code> dataset where the species has been relocated to the first column. This file is very small and would probably be accommodated even in the RAM of old hardware, so <code>fplyr</code> would not be necessary. Nevertheless, this file is attached to the package, meaning that it will be immediately available to all users, and despite its having only three blocks, it will still illustrate the most important features of <code>fplyr</code>. We begin by storing the path to this file into the variable <code>f</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;dt_iris.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;fplyr&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Let's have a look at the first four lines of the file</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">fread</span>(f, <span class="dt">nrows =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></a></code></pre></div>
+</div>
+<div id="flply" class="section level2">
+<h2>flply</h2>
+<p>Use flply() when you want to obtain a list where each element corresponds to a subject and contains the result of the processing of the corresponding block. In our examples, the output of flply() will contain three elements, one for each Iris species. The elements of the list will be conveniently named after the subject IDs.</p>
+<p><code>fplyr</code> allows you to apply a function to each block of the file. For the sake of distinguishing the user-specified function to be applied to each block from other functions, we shall refer to it as <code>FUN</code>. In the first example we will obtain the summary() of each species. In general, all the functions in the package support two fundamental arguments: the path to the input file, and <code>FUN</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">species_summ &lt;-<span class="st"> </span><span class="kw">flply</span>(<span class="dt">input =</span> f, <span class="dt">FUN =</span> summary)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># Now `species_summ` is a list of three elements; let's show the 'versicolor' element</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">species_summ<span class="op">$</span>versicolor</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    Species           Sepal.Length    Sepal.Width     Petal.Length </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;  Length:50          Min.   :4.900   Min.   :2.000   Min.   :3.00  </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  Class :character   1st Qu.:5.600   1st Qu.:2.525   1st Qu.:4.00  </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  Mode  :character   Median :5.900   Median :2.800   Median :4.35  </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;                     Mean   :5.936   Mean   :2.770   Mean   :4.26  </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;                     3rd Qu.:6.300   3rd Qu.:3.000   3rd Qu.:4.60  </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;                     Max.   :7.000   Max.   :3.400   Max.   :5.10  </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;   Petal.Width   </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  Min.   :1.000  </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  1st Qu.:1.200  </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  Median :1.300  </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;  Mean   :1.326  </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;  3rd Qu.:1.500  </span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  Max.   :1.800</span></a></code></pre></div>
+<p>For flply(), <code>FUN</code> can be any function that takes as input a “data.frame”; summary() was just an example, but other appropriate functions are str(), as.matrix(), and so on. Of course, if you cannot find a function that does what you want, you can write your own <code>FUN</code>, as we shall see in the next example, where we’ll perform hierarchical clustering within each species.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Note that this is also how functions like lapply() work.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> <span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">  dm &lt;-<span class="st"> </span><span class="kw">dist</span>(d[, <span class="dv">-1</span>]) <span class="co"># Compute the distance matrix, excluding the first field</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">hclust</span>(dm) <span class="co"># Perform the clustering and return the object</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">})</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># The `cluster` variable contains one &quot;hclust&quot; object for each species.</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># Let's plot the 'setosa' dendrogram</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">plot</span>(clusters<span class="op">$</span>setosa)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>If <code>FUN</code> takes more than one argument, it is possible to pass any additional argument directly to flply(): they will be passed, in turn, to <code>FUN</code>. For instance, suppose that we want to use kmeans() instead of hclust(), and we want to specify the number of centroids as an additional parameter. In the next example we will also define <code>FUN</code> as a separate function before using it, rather than writing an anonymous function like in the previous example. The output will be a “kmeans” object for each species.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">kmeans_FUN &lt;-<span class="st"> </span><span class="cf">function</span>(d, my_centers) {</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw">kmeans</span>(d[, <span class="dv">-1</span>], <span class="dt">centers =</span> my_centers)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">my_centers &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># We pass `my_centers` to flply(), and flply() passes it to kmeans_FUN</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> kmeans_FUN, my_centers)</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># Let's display the centers of the 'setosa' clusters</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1     5.242857    3.667857     1.500000   0.2821429</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2     4.704545    3.122727     1.413636   0.2000000</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co"># Now let's do the same thing, but with three centers for each species</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15">my_centers &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> kmeans_FUN, my_centers)</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1     5.512500    4.000000     1.475000    0.275000</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 2     5.100000    3.513043     1.526087    0.273913</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 3     4.678947    3.084211     1.378947    0.200000</span></a></code></pre></div>
+<p>The last example of this section may be a bit surprising. Since, in R, <code>[[</code> is a function, nothing prevents us from using it as <code>FUN</code> to select only, say, the second column of each block. Admittedly, however, in this case it would be better to use the <code>select</code> option (see <code>?flply</code> and <code>?fread</code>, or wait for the <a href="#options">Other options</a> subsection).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">sepal_length &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># Now `sepal_length` contains all the sepal lengths, divided by species</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">sepal_length</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; $setosa</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1 5.7</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; [20] 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0 5.5 4.9</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; [39] 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; $versicolor</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  [1] 7.0 6.4 6.9 5.5 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; [20] 5.6 5.9 6.1 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; [39] 5.6 5.5 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; $virginica</span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  [1] 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7</span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; [20] 6.0 6.9 5.6 7.7 6.3 6.7 7.2 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; [39] 6.0 6.9 6.7 6.9 5.8 6.8 6.7 6.7 6.3 6.5 6.2 5.9</span></a></code></pre></div>
+<div id="naming-convention" class="section level3">
+<h3>Naming convention</h3>
+<p>We followed the same convention of the <code>plyr</code> package. The name of each function consists of two letters followed by ‘ply’: the first letter represent the type of input, whereas the second letter characterizes the type of output, and the final ‘ply’ clinches the relation with the existing ‘apply’ family of functions. The first letter is usually ‘f’, because the input is the path to a file. The second letter is ‘l’ if the output is a list, as in flply(), it is ‘t’ if the output is a “data.table”, ‘f’ if the output is another file, and ‘m’ if the output can be multiple things.</p>
+</div>
+</div>
+<div id="ftply" class="section level2">
+<h2>ftply</h2>
+<p>Use ftply() to return a “data.table”; the rows corresponding to the different subjects will be <code>rbind</code>ed together. Needless to say, in this case <code>FUN</code> must return a “data.frame” or a “data.table”, while in flply() there was no such restriction. (When <code>fplyr</code> is loaded, the <code>data.table</code> package is loaded as well.) Moreover, in this case <code>FUN</code> has to take at least two arguments: the first one being a “data.table” corresponding to the current block being processed, and the second one being a character vector containing the subject ID. This is best explained with an example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">selected_flowers &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="cf">function</span>(d, by) {</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="cf">if</span> (by <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">return</span>(<span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="cf">else</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">return</span>(d)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">})</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; Warning in ftply(f, function(d, by) {: Block 1 returned an empty data.table.</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co"># Let's have a look at the first few lines of the output; note that it start directly with 'versicolor', because all the 'setosa' flowers have been omitted</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="kw">head</span>(selected_flowers, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;       Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 1: versicolor          7.0         3.2          4.7         1.4</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 2: versicolor          6.4         3.2          4.5         1.5</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 3: versicolor          6.9         3.1          4.9         1.5</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 4: versicolor          5.5         2.3          4.0         1.3</span></a></code></pre></div>
+<p>Here, we are skipping the ‘setosa’ species. The result will be equal to the input, except that the rows corresponding to the setosa flowers will be omitted. Notice also that <code>fplyr</code> warns us that one block didn’t return any output. In general, the behavior of ftply() is equivalent to flply() followed by <code>rbind</code> on the resulting list.</p>
+<p>Importantly, the <code>d</code> argument to <code>FUN</code> contains a “data.table” of the current block being processed, but <em>without the first field</em>. This is just for efficiency concerns; the first field will be added back to the output of <code>FUN</code>. In fact, the following example will show that inside <code>FUN</code> the <code>d</code> data set has only four columns, whereas normally it would have five.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">count_cols &lt;-<span class="st"> </span><span class="cf">function</span>(d, by) {</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">ncol</span>(d)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">ftply</span>(f, count_cols)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;       Species V1</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 1:     setosa  4</span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 2: versicolor  4</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 3:  virginica  4</span></a></code></pre></div>
+<div id="the-nblocks-option" class="section level3">
+<h3>The <code>nblocks</code> option</h3>
+<p>ftply() can also be used to quickly glance at the data, much like one would use the head() function. Indeed, we can specify the <code>nblocks</code> option to select only the first block; thus, we can see what the data look like without loading the whole file into memory. By default, in ftply() <code>FUN</code> returns the data without modifying them, so in this case we can avoid specifying <code>FUN</code>. Incidentally, all the other functions support the <code>nblocks</code> option as well; it is intended to be the analogous of <code>nrows</code> in read.table() and fread().</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">flowers_head &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="dt">nblocks =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co"># Now `flowers_head` has 50 observations, while the original data set had 150. Let's have a look at the first ones.</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">head</span>(flowers_head, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></a></code></pre></div>
+</div>
+<div id="parallelization" class="section level3">
+<h3>Parallelization</h3>
+<p>Another useful option is <code>parallel</code>, with which it is possible to specify the number of threads that <code>fplyr</code> can use. Like <code>nblocks</code>, also the <code>parallel</code> option is supported by all the functions. It is not necessary to initialize any cluster, but this option has effect only on Unix-like systems, not on Windows. In the following example we will select, for each block, a random sample of 10 observations.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="dt">parallel =</span> <span class="dv">3</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(d, by) {</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  d[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(d), <span class="dv">10</span>), ]</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">})</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># Let's check that the output has 30 rows (10 for each species)</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw">nrow</span>(result)</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; [1] 30</span></a></code></pre></div>
+</div>
+</div>
+<div id="ffply" class="section level2">
+<h2>ffply</h2>
+<p>This package was born to deal with files that are too big to fit into the available RAM. With <code>fplyr</code>, it is easy to process such files, but what if even the output of the processing is too big for the memory? One solution could be to write the output to a file as soon as it is generated, without ever returning it. This solution is implemented in the ffply() function, but it works only if <code>FUN</code> returns a “data.table” or “data.frame”. It is equivalent to calling ftply() followed by write.table() or fread(). This function supports one additional argument with respect to the previously described functions: the path to the output file. In the example, we will replace the original observations with their principal components, block by block.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">out &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># Create temporary output file</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">ffply</span>(f, out, <span class="cf">function</span>(d, by) {</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="co"># Here, `d` does not contain the subject IDs; they will be automatically added back later</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  x &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d)<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="kw">as.data.table</span>(x)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">})</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co"># Let's check the result. Note in particular that the subject IDs are present</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="kw">fread</span>(out, <span class="dt">nrows =</span> <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;    Species        PC1         PC2         PC3          PC4</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 1:  setosa -0.1068424 -0.02489398  0.08216974 -0.034541755</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; 2:  setosa  0.3940472  0.16586593  0.13148092 -0.017551195</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 3:  setosa  0.3906877 -0.12685112  0.07181182  0.009744303</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 4:  setosa  0.5117016 -0.02656106 -0.11121361 -0.032673214</span></a></code></pre></div>
+<p>For ffply(), <code>FUN</code> must take two arguments, like in ftply(). The return value of ffply() is the number of processed blocks.</p>
+<div id="options" class="section level3">
+<h3>Other options</h3>
+<p>Besides the options we have already discussed, such as <code>nblocks</code> and <code>parallel</code>, all the functions in the package support a set of core options that modify how the file is read. These options are as follows.</p>
+<ul>
+<li><code>key.sep</code> The character that delimits the first field from the rest [default: “\t”].</li>
+<li><code>sep</code> The field delimiter (often equal to <code>key.sep</code>) [default: “\t”].</li>
+<li><code>skip</code> Number of lines to skip at the beginning of the file [default: 0].</li>
+<li><code>header</code> Whether the file has a header [default: TRUE].</li>
+<li><code>nblocks</code> The number of blocks to read [default: Inf].</li>
+<li><code>stringsAsFactors</code> Whether to convert strings into factors [default: FALSE].</li>
+<li><code>colClasses</code> Vector or list specifying the class of each field [default: NULL].</li>
+<li><code>select</code> The columns (names or numbers) to be read [default: NULL].</li>
+<li><code>drop</code> The columns (names or numbers) not to be read [default: NULL].</li>
+<li><code>col.names</code> Names of the columns [default: NULL].</li>
+</ul>
+<p>With the exception of <code>key.sep</code>, all these options are comprehensively documented in the help page of <code>data.table</code>‘s fread() function (<code>?fread</code>). For <code>key.sep</code>, see the help page of <code>iotools</code>’ read.chunk() (<code>?read.chunk</code>).</p>
+</div>
+</div>
+<div id="fmply" class="section level2">
+<h2>fmply</h2>
+<p>For the last function, suppose that the analysis of each block produces several output files; for instance, we may want to compute the principal components as well as a nonlinear transformation of the variables, for each block, and save them to two separate output files. In this case, we can use fmply(). Like ftply(), it too supports the <code>output</code> option, but this time it can be a vector of many paths. Accordingly, <code>FUN</code> should now return a list of “data.table”s, one for each of the output files.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">out &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">pca =</span> <span class="kw">tempfile</span>(), <span class="dt">transf =</span> <span class="kw">tempfile</span>())</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co"># Note that the vector needs not be named, we use these names just for convenience</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">analyze_block &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">  <span class="co"># Here, `d` does contain the subject IDs, so we have to remove them...</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  x &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d[, <span class="dv">-1</span>])<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">  <span class="co"># ...and add them back manually</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">  x &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], x)</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">  <span class="co"># Transform each number 'z' into e^(-z)</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">  y &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], <span class="kw">exp</span>(<span class="op">-</span>d[, <span class="dv">-1</span>]))</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">  <span class="co"># Return a list of two &quot;data.table&quot;s</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12">  <span class="kw">list</span>(x, y)</a>
+<a class="sourceLine" id="cb11-13" data-line-number="13">}</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="kw">fmply</span>(f, out, analyze_block)</a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt; list()</span></a></code></pre></div>
+<p>Notice that, contrary to ffply(), <code>FUN</code> takes only one argument, and it is the full block, including the first field. Therefore, we had to remove this field when we computed the principal components, and add it back at the end. (In ffply() and ftply() this is done automatically.) Moreover, <code>FUN</code> should now return two values, the first of which is printed to the first output file, and the second of which is printed to the second output file. There is no limit to the number of output files, but the order of the output files and of the values returned by <code>FUN</code> must match (named vectors and lists are not taken into account at the moment).</p>
+<p>Sometimes it is also necessary to return objects that are not printable as “data.table”s. For instance, suppose that, besides printing the principal components to the output file, we also wanted to return the <code>&quot;prcomp&quot;</code> object. In these cases, fmply() is still helpful, because it allows <code>FUN</code> to return one more element, which in turn will be returned by fmply(). For example, consider the following modification of analyze_block():</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">analyze_block2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d[, <span class="dv">-1</span>])</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  x &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], pca<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">  y &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], <span class="kw">exp</span>(<span class="op">-</span>d[, <span class="dv">-1</span>]))</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">  <span class="co"># 'x' and 'y' are the same as before, but now we add the 'pca' object</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="kw">list</span>(x, y, pca)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">iris_pca &lt;-<span class="st"> </span><span class="kw">fmply</span>(f, out, analyze_block2)</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co"># Let's have a look at the screeplot of the 'versicolor' PCA</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="kw">screeplot</span>(iris_pca<span class="op">$</span>versicolor)</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>Here, <code>FUN</code> returns three arguments, but there are only two output files. The third value returned by <code>FUN</code>, then, is returned at the end by fmply(). In particular, the variable <code>iris_pca</code> will be a list of three <code>&quot;prcomp&quot;</code> objects, one for each species.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Actually, it is a bit more complicated than that: the <code>iotools</code> package takes care of the reading, so the file is read chunk by chunk, not block by block, and then the chunk is split into its constituent blocks; you can read more about how <code>iotools</code> reads files in the help page of the chunk.reader() function.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Yes, I know this clustering is pointless, but the example is just meant to illustrate the kind of things that one can do, provided that he or she has access to more appropriate data sets.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

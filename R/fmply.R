@@ -53,14 +53,14 @@
 #' @export
 fmply <- function(input, outputs, FUN, ...,
                   key.sep = "\t", sep = "\t", skip = 0, header = TRUE,
-                  nblocks = Inf, stringsAsFactors = FALSE,
+				  nblocks = Inf, stringsAsFactors = FALSE, colClasses = NULL,
                   select = NULL, drop = NULL, col.names = NULL,
                   parallel = 1) {
     # Prepare the input, find the header and define the formatter.
     input <- OpenInput(input, skip)
     head <- GetHeader(input, col.names, header, sep)
-    dtstrsplit <- DefineFormatter(sep, stringsAsFactors, head, select, drop)
-    on.exit(close(input))
+	dtstrsplit <- DefineFormatter(sep, colClasses, stringsAsFactors, head, select, drop)
+    # on.exit(close(input))
 
     if (parallel > 1 && .Platform$OS.type != "unix") {
         warning("parallel > 1 is not supported on non-unix systems")
@@ -165,5 +165,6 @@ fmply <- function(input, outputs, FUN, ...,
             }
         }
     }
+    close(input)
     res
 }

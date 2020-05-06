@@ -1,44 +1,37 @@
-#' Read, process each block and write the result
+#' Read, process each block and return a data.table
 #'
-#' Suppose you want to process each block of a file and the result is again
-#' a \code{data.table} that you want to print to some output file. One possible
-#' approach is to use \code{l <- flply(...)} followed by \code{do.call(rbind, l)}
-#' and \code{fwrite}, but this would be slow. \code{ffply} offers a faster
-#' solution to this problem.
+#' \code{ftply} takes as input the path to a file and a function, and
+#' returns a \code{data.table}. It is a faster equivalent to using
+#' \code{l <- flply(...)} followed by \code{do.call(rbind, l)}.
+#'
+#' \code{ftply} is similar to \code{ffply}, but while the latter writes
+#' to disk the result of the processing after each block, the former
+#' keeps the result in memory until all the file has been processed, and
+#' then returns the complete \code{data.table}.
 #'
 #' @inheritParams flply
 #' @param FUN Function to be applied to each block. It must take at least two arguments,
 #'     the first of which is a \code{data.table} containing the current block, \emph{without
 #'     the first field}; the second argument is a character vector containing the
 #'     value of the first field for the current block.
-#' @param output String containing the path to the output file.
 #'
-#' @return Returns the number of chunks that were processed. As a side effect,
-#'     writes the processed \code{data.table} to the output file.
+#' @return Returns a \code{data.table} with the results of the
+#' processing.
 #'
 #' @section Slogan:
-#' ffply: from \strong{f}ile to \strong{f}ile
+#' ftply: from \strong{f}ile to data.\strong{t}able
 #'
 #' @examples
 #' f1 <- system.file("extdata", "dt_iris.csv", package = "fplyr")
-#' f2 <- tempfile()
-#'
-#' # Copy the first two blocks from f1 into f2 to obtain a shorter but
-#' # consistent version of the original input file.
-#' ffply(f1, f2, function(d, by) {return(d)}, nblocks = 2)
 #'
 #' # Compute the mean of the columns for each species
-#' ffply(f1, f2, function(d, by) d[, lapply(.SD, mean)])
+#' ftply(f1, function(d, by) d[, lapply(.SD, mean)])
 #'
-#' # Reshape the file, block by block
-#' ffply(f1, f2, function(d, by) {
-#'     val <- do.call(c, d)
-#'     var <- rep(names(d), each = nrow(d))
-#'     data.table(Var = var, Val = val)
-#' })
+#' # Read only the first two blocks
+#' ftply(f1, nblocks = 2)
 #'
 #' @export
-ffply <- function(input, output = "", FUN, ...,
+ftply <- function(input, FUN = function(d, by) d, ...,
                   key.sep = "\t", sep = "\t", skip = 0, header = TRUE,
 				  nblocks = Inf, stringsAsFactors = FALSE, colClasses = NULL,
                   select = NULL, drop = NULL, col.names = NULL,
@@ -61,6 +54,7 @@ ffply <- function(input, output = "", FUN, ...,
     # Parse the file
     i <- 0 # keep track of the number of blocks parsed
     fc <- head[1] # first column
+    dt <- data.table() # return value
     if (parallel == 1) {
         while (i < nblocks && length(r <- iotools::read.chunk(cr))) {
             d <- dtstrsplit(r)
@@ -79,18 +73,7 @@ ffply <- function(input, output = "", FUN, ...,
                     if (i + k <= nblocks)
                         warning(paste0("Block ", i + k, " returned an empty data.table."))
             }
-            if (i == 0) {
-                if (all(names(d) == c(fc, paste0("V", 1:(length(d) - 1))))) {
-                    fwrite(d, file = output, col.names = FALSE,
-                                       sep = sep, quote = FALSE)
-                } else {
-                    fwrite(d, file = output, col.names = TRUE,
-                                       sep = sep, quote = FALSE)
-                }
-            } else {
-                fwrite(d, file = output, append = TRUE,
-                       sep = sep, quote = FALSE, col.names = FALSE)
-            }
+            dt <- rbind(dt, d)
             i <- i + min(nblocks - i, length(u))
         }
     } else {
@@ -130,18 +113,7 @@ ffply <- function(input, output = "", FUN, ...,
                     if (i + k <= nblocks)
                         warning(paste0("Block ", i + k, " returned an empty data.table."))
             }
-            if (i == 0) {
-                if (all(names(w$d) == c(fc, paste0("V", 1:(length(w$d) - 1))))) {
-                    fwrite(w$d, file = output, col.names = FALSE,
-                                       sep = sep, quote = FALSE)
-                } else {
-                    fwrite(w$d, file = output, col.names = TRUE,
-                                       sep = sep, quote = FALSE)
-                }
-            } else {
-                fwrite(w$d, file = output, append = TRUE,
-                                   sep = sep, quote = FALSE, col.names = FALSE)
-            }
+            dt <- rbind(dt, w$d)
             worker_queue[1] = NULL
             i <- i + min(nblocks - i, length(w$u))
 
@@ -162,5 +134,5 @@ ffply <- function(input, output = "", FUN, ...,
         }
     }
     close(input)
-    invisible(i)
+    dt
 }
