@@ -300,12 +300,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div id="fplyr-1.2.0" class="section level1">
-<h1>fplyr 1.2.0</h1>
+<div id="fplyr-1.2.1" class="section level1">
+<h1>fplyr 1.2.1</h1>
 <div id="apply-functions-to-blocks-of-files" class="section level2">
 <h2>Apply Functions to Blocks of Files</h2>
 <div id="section" class="section level3">
-<h3>2020-05-06</h3>
+<h3>2020-06-22</h3>
 <p>After briefly describing the problem that <code>fplyr</code> tries to solve, this vignette will go through all the functions in the package, explaining their usage. In order to make the most of this package, a certain degree of familiarity with the <code>data.table</code> package is suggested. Often, if one has trouble understanding an option, it will be possible to find detailed help in the manual of <code>data.table</code>’s fread() function. Furthermore, basic acquaintance with the *ply family of functions in R, especially lapply(), will also be helpful. You are encouraged to run the code of this vignette on your own and explore the output of the commands.</p>
 </div>
 </div>
@@ -372,17 +372,17 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># Let's display the centers of the 'setosa' clusters</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1     5.242857    3.667857     1.500000   0.2821429</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2     4.704545    3.122727     1.413636   0.2000000</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1     4.704545    3.122727     1.413636   0.2000000</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2     5.242857    3.667857     1.500000   0.2821429</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co"># Now let's do the same thing, but with three centers for each species</span></a>
 <a class="sourceLine" id="cb4-15" data-line-number="15">my_centers &lt;-<span class="st"> </span><span class="dv">3</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> kmeans_FUN, my_centers)</a>
 <a class="sourceLine" id="cb4-17" data-line-number="17">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
 <a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1     5.512500    4.000000     1.475000    0.275000</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 2     5.100000    3.513043     1.526087    0.273913</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 3     4.678947    3.084211     1.378947    0.200000</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1     4.678947    3.084211     1.378947    0.200000</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 2     5.512500    4.000000     1.475000    0.275000</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 3     5.100000    3.513043     1.526087    0.273913</span></a></code></pre></div>
 <p>The last example of this section may be a bit surprising. Since, in R, <code>[[</code> is a function, nothing prevents us from using it as <code>FUN</code> to select only, say, the second column of each block. Admittedly, however, in this case it would be better to use the <code>select</code> option (see <code>?flply</code> and <code>?fread</code>, or wait for the <a href="#options">Other options</a> subsection).</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">sepal_length &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>, <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
@@ -513,8 +513,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-12" data-line-number="12">  <span class="kw">list</span>(x, y)</a>
 <a class="sourceLine" id="cb11-13" data-line-number="13">}</a>
 <a class="sourceLine" id="cb11-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="kw">fmply</span>(f, out, analyze_block)</a>
-<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt; list()</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="kw">fmply</span>(f, out, analyze_block)</a></code></pre></div>
 <p>Notice that, contrary to ffply(), <code>FUN</code> takes only one argument, and it is the full block, including the first field. Therefore, we had to remove this field when we computed the principal components, and add it back at the end. (In ffply() and ftply() this is done automatically.) Moreover, <code>FUN</code> should now return two values, the first of which is printed to the first output file, and the second of which is printed to the second output file. There is no limit to the number of output files, but the order of the output files and of the values returned by <code>FUN</code> must match (named vectors and lists are not taken into account at the moment).</p>
 <p>Sometimes it is also necessary to return objects that are not printable as “data.table”s. For instance, suppose that, besides printing the principal components to the output file, we also wanted to return the <code>&quot;prcomp&quot;</code> object. In these cases, fmply() is still helpful, because it allows <code>FUN</code> to return one more element, which in turn will be returned by fmply(). For example, consider the following modification of analyze_block():</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">analyze_block2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
