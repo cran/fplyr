@@ -12,74 +12,105 @@
 
 
 
-<title>fplyr.utf8</title>
+<title>fplyr.knit</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {  }
+{ }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -88,13 +119,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -102,6 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -300,243 +339,430 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div id="fplyr-1.2.1" class="section level1">
-<h1>fplyr 1.2.1</h1>
+<div id="fplyr-1.3.0" class="section level1">
+<h1>fplyr 1.3.0</h1>
 <div id="apply-functions-to-blocks-of-files" class="section level2">
 <h2>Apply Functions to Blocks of Files</h2>
 <div id="section" class="section level3">
-<h3>2020-06-22</h3>
-<p>After briefly describing the problem that <code>fplyr</code> tries to solve, this vignette will go through all the functions in the package, explaining their usage. In order to make the most of this package, a certain degree of familiarity with the <code>data.table</code> package is suggested. Often, if one has trouble understanding an option, it will be possible to find detailed help in the manual of <code>data.table</code>’s fread() function. Furthermore, basic acquaintance with the *ply family of functions in R, especially lapply(), will also be helpful. You are encouraged to run the code of this vignette on your own and explore the output of the commands.</p>
+<h3>2023-08-23</h3>
+<p>After briefly describing the problem that <code>fplyr</code> tries to
+solve, this vignette will go through all the functions in the package,
+explaining their usage. In order to make the most of this package, a
+certain degree of familiarity with the <code>data.table</code> package
+is suggested. Often, if one has trouble understanding an option, it will
+be possible to find detailed help in the manual of
+<code>data.table</code>’s fread() function. Furthermore, basic
+acquaintance with the *ply family of functions in R, especially
+lapply(), will also be helpful. You are encouraged to run the code of
+this vignette on your own and explore the output of the commands.</p>
 </div>
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>A very common operation when analyzing data is that of splitting the observations into groups and applying a function to each group, separately. So common is this operation, that in R there are at least two functions that implement it: by() and aggregate(). However, using these functions requires that the data be loaded into the RAM, and often the files are too big to fit in the memory. <code>fplyr</code> was born to solve this problem: it allows to perform split-apply-combine operations to very big files; by reading the files chunk by chunk, only a limited number of rows is stored in memory at any given time.</p>
-<p><code>fplyr</code> combines the strengths of two other packages: <code>iotools</code> and <code>data.table</code>. While <code>iotools</code> has some functions, such as chunk.apply(), to apply a function to chunks of files, the chunks may not reflect the actual groups in which the data are partitioned. In particular, a ‘chunk’ may contain observations pertaining to several different groups, and the task of further splitting them is left to the user. In <code>fplyr</code>, on the other hand, the further splitting is done automatically (thanks also to the <code>data.table</code> package), so the user needs not worry about it.</p>
+<p>A very common operation when analyzing data is that of splitting the
+observations into groups and applying a function to each group,
+separately. So common is this operation, that in R there are at least
+two functions that implement it: by() and aggregate(). However, using
+these functions requires that the data be loaded into the RAM, and often
+the files are too big to fit in the memory. <code>fplyr</code> was born
+to solve this problem: it allows to perform split-apply-combine
+operations to very big files; by reading the files chunk by chunk, only
+a limited number of rows is stored in memory at any given time.</p>
+<p><code>fplyr</code> combines the strengths of two other packages:
+<code>iotools</code> and <code>data.table</code>. While
+<code>iotools</code> has some functions, such as chunk.apply(), to apply
+a function to chunks of files, the chunks may not reflect the actual
+groups in which the data are partitioned. In particular, a ‘chunk’ may
+contain observations pertaining to several different groups, and the
+task of further splitting them is left to the user. In
+<code>fplyr</code>, on the other hand, the further splitting is done
+automatically (thanks also to the <code>data.table</code> package), so
+the user needs not worry about it.</p>
 </div>
 <div id="preconditions" class="section level2">
 <h2>Preconditions</h2>
-<p>Before using <code>fplyr</code> you need to ensure that the input file is in the correct format. First and foremost, the data must be amenable to the split-apply-combine paradigm, so the observations must be grouped according to the value of a certain field. We refer to the values of the ‘groupby’ field as the <em>subjects</em>. Thus, for instance, in the famous <code>iris</code> data set, each species would be a different subject. All the observations pertaining to the same subject constitute a <em>block</em>.</p>
-<p>In <code>fplyr</code> the input file must be formatted in such a way that the first field contains all the subject IDs. If the IDs are not in the first field, it won’t work. Moreover, all the observations referring to the same subject must be consecutive; in other words, the file must be sorted on the first field, the reason being that the file is read block by block. Indeed, the subject ID of one line is compared with that of the previous line, and the reading goes on until the IDs are the same.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Note that <code>fplyr</code> always ensures that all the rows with the same subject ID are read together in the same batch, but only if the rows are consecutive. To make sure that a file complies with these specifications, it is possible to use *nix command-line tools such as <code>awk</code> and <code>sort</code>.</p>
-<p>As an example file, in this vignette we will use a modified version of the <code>iris</code> dataset where the species has been relocated to the first column. This file is very small and would probably be accommodated even in the RAM of old hardware, so <code>fplyr</code> would not be necessary. Nevertheless, this file is attached to the package, meaning that it will be immediately available to all users, and despite its having only three blocks, it will still illustrate the most important features of <code>fplyr</code>. We begin by storing the path to this file into the variable <code>f</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;dt_iris.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;fplyr&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Let's have a look at the first four lines of the file</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">fread</span>(f, <span class="dt">nrows =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></a></code></pre></div>
+<p>Before using <code>fplyr</code> you need to ensure that the input
+file is in the correct format. First and foremost, the data must be
+amenable to the split-apply-combine paradigm, so the observations must
+be grouped according to the value of a certain field. We refer to the
+values of the ‘groupby’ field as the <em>subjects</em>. Thus, for
+instance, in the famous <code>iris</code> data set, each species would
+be a different subject. All the observations pertaining to the same
+subject constitute a <em>block</em>.</p>
+<p>In <code>fplyr</code> the input file must be formatted in such a way
+that the first field contains all the subject IDs. If the IDs are not in
+the first field, it won’t work. Moreover, all the observations referring
+to the same subject must be consecutive; in other words, the file must
+be sorted on the first field, the reason being that the file is read
+block by block. Indeed, the subject ID of one line is compared with that
+of the previous line, and the reading goes on until the IDs are the
+same.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>
+Note that <code>fplyr</code> always ensures that all the rows with the
+same subject ID are read together in the same batch, but only if the
+rows are consecutive. To make sure that a file complies with these
+specifications, it is possible to use *nix command-line tools such as
+<code>awk</code> and <code>sort</code>.</p>
+<p>As an example file, in this vignette we will use a modified version
+of the <code>iris</code> dataset where the species has been relocated to
+the first column. This file is very small and would probably be
+accommodated even in the RAM of old hardware, so <code>fplyr</code>
+would not be necessary. Nevertheless, this file is attached to the
+package, meaning that it will be immediately available to all users, and
+despite its having only three blocks, it will still illustrate the most
+important features of <code>fplyr</code>. We begin by storing the path
+to this file into the variable <code>f</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;dt_iris.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;fplyr&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Let&#39;s have a look at the first four lines of the file</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">fread</span>(f, <span class="at">nrows =</span> <span class="dv">4</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></span></code></pre></div>
 </div>
 <div id="flply" class="section level2">
 <h2>flply</h2>
-<p>Use flply() when you want to obtain a list where each element corresponds to a subject and contains the result of the processing of the corresponding block. In our examples, the output of flply() will contain three elements, one for each Iris species. The elements of the list will be conveniently named after the subject IDs.</p>
-<p><code>fplyr</code> allows you to apply a function to each block of the file. For the sake of distinguishing the user-specified function to be applied to each block from other functions, we shall refer to it as <code>FUN</code>. In the first example we will obtain the summary() of each species. In general, all the functions in the package support two fundamental arguments: the path to the input file, and <code>FUN</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">species_summ &lt;-<span class="st"> </span><span class="kw">flply</span>(<span class="dt">input =</span> f, <span class="dt">FUN =</span> summary)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># Now `species_summ` is a list of three elements; let's show the 'versicolor' element</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">species_summ<span class="op">$</span>versicolor</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    Species           Sepal.Length    Sepal.Width     Petal.Length </span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;  Length:50          Min.   :4.900   Min.   :2.000   Min.   :3.00  </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  Class :character   1st Qu.:5.600   1st Qu.:2.525   1st Qu.:4.00  </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  Mode  :character   Median :5.900   Median :2.800   Median :4.35  </span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;                     Mean   :5.936   Mean   :2.770   Mean   :4.26  </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;                     3rd Qu.:6.300   3rd Qu.:3.000   3rd Qu.:4.60  </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;                     Max.   :7.000   Max.   :3.400   Max.   :5.10  </span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;   Petal.Width   </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  Min.   :1.000  </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  1st Qu.:1.200  </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  Median :1.300  </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;  Mean   :1.326  </span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;  3rd Qu.:1.500  </span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  Max.   :1.800</span></a></code></pre></div>
-<p>For flply(), <code>FUN</code> can be any function that takes as input a “data.frame”; summary() was just an example, but other appropriate functions are str(), as.matrix(), and so on. Of course, if you cannot find a function that does what you want, you can write your own <code>FUN</code>, as we shall see in the next example, where we’ll perform hierarchical clustering within each species.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Note that this is also how functions like lapply() work.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> <span class="cf">function</span>(d) {</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  dm &lt;-<span class="st"> </span><span class="kw">dist</span>(d[, <span class="dv">-1</span>]) <span class="co"># Compute the distance matrix, excluding the first field</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">hclust</span>(dm) <span class="co"># Perform the clustering and return the object</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">})</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># The `cluster` variable contains one &quot;hclust&quot; object for each species.</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># Let's plot the 'setosa' dendrogram</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">plot</span>(clusters<span class="op">$</span>setosa)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<p>If <code>FUN</code> takes more than one argument, it is possible to pass any additional argument directly to flply(): they will be passed, in turn, to <code>FUN</code>. For instance, suppose that we want to use kmeans() instead of hclust(), and we want to specify the number of centroids as an additional parameter. In the next example we will also define <code>FUN</code> as a separate function before using it, rather than writing an anonymous function like in the previous example. The output will be a “kmeans” object for each species.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">kmeans_FUN &lt;-<span class="st"> </span><span class="cf">function</span>(d, my_centers) {</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="kw">kmeans</span>(d[, <span class="dv">-1</span>], <span class="dt">centers =</span> my_centers)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">my_centers &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># We pass `my_centers` to flply(), and flply() passes it to kmeans_FUN</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> kmeans_FUN, my_centers)</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># Let's display the centers of the 'setosa' clusters</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 1     4.704545    3.122727     1.413636   0.2000000</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 2     5.242857    3.667857     1.500000   0.2821429</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co"># Now let's do the same thing, but with three centers for each species</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15">my_centers &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16">clusters &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="dt">FUN =</span> kmeans_FUN, my_centers)</a>
-<a class="sourceLine" id="cb4-17" data-line-number="17">clusters<span class="op">$</span>setosa<span class="op">$</span>centers</a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 1     4.678947    3.084211     1.378947    0.200000</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; 2     5.512500    4.000000     1.475000    0.275000</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; 3     5.100000    3.513043     1.526087    0.273913</span></a></code></pre></div>
-<p>The last example of this section may be a bit surprising. Since, in R, <code>[[</code> is a function, nothing prevents us from using it as <code>FUN</code> to select only, say, the second column of each block. Admittedly, however, in this case it would be better to use the <code>select</code> option (see <code>?flply</code> and <code>?fread</code>, or wait for the <a href="#options">Other options</a> subsection).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">sepal_length &lt;-<span class="st"> </span><span class="kw">flply</span>(f, <span class="st">`</span><span class="dt">[[</span><span class="st">`</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># Now `sepal_length` contains all the sepal lengths, divided by species</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">sepal_length</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; $setosa</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1 5.7</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt; [20] 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0 5.5 4.9</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; [39] 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; $versicolor</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  [1] 7.0 6.4 6.9 5.5 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; [20] 5.6 5.9 6.1 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; [39] 5.6 5.5 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; $virginica</span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  [1] 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7</span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt; [20] 6.0 6.9 5.6 7.7 6.3 6.7 7.2 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; [39] 6.0 6.9 6.7 6.9 5.8 6.8 6.7 6.7 6.3 6.5 6.2 5.9</span></a></code></pre></div>
+<p>Use flply() when you want to obtain a list where each element
+corresponds to a subject and contains the result of the processing of
+the corresponding block. In our examples, the output of flply() will
+contain three elements, one for each Iris species. The elements of the
+list will be conveniently named after the subject IDs.</p>
+<p><code>fplyr</code> allows you to apply a function to each block of
+the file. For the sake of distinguishing the user-specified function to
+be applied to each block from other functions, we shall refer to it as
+<code>FUN</code>. In the first example we will obtain the summary() of
+each species. In general, all the functions in the package support two
+fundamental arguments: the path to the input file, and
+<code>FUN</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>species_summ <span class="ot">&lt;-</span> <span class="fu">flply</span>(<span class="at">input =</span> f, <span class="at">FUN =</span> summary)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># Now `species_summ` is a list of three elements; let&#39;s show the &#39;versicolor&#39; element</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>species_summ<span class="sc">$</span>versicolor</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt;    Species           Sepal.Length    Sepal.Width     Petal.Length </span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt;  Length:50          Min.   :4.900   Min.   :2.000   Min.   :3.00  </span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;  Class :character   1st Qu.:5.600   1st Qu.:2.525   1st Qu.:4.00  </span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Median :5.900   Median :2.800   Median :4.35  </span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt;                     Mean   :5.936   Mean   :2.770   Mean   :4.26  </span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;                     3rd Qu.:6.300   3rd Qu.:3.000   3rd Qu.:4.60  </span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt;                     Max.   :7.000   Max.   :3.400   Max.   :5.10  </span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt;   Petal.Width   </span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt;  Min.   :1.000  </span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:1.200  </span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt;  Median :1.300  </span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt;  Mean   :1.326  </span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:1.500  </span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt;  Max.   :1.800</span></span></code></pre></div>
+<p>For flply(), <code>FUN</code> can be any function that takes as input
+a “data.frame”; summary() was just an example, but other appropriate
+functions are str(), as.matrix(), and so on. Of course, if you cannot
+find a function that does what you want, you can write your own
+<code>FUN</code>, as we shall see in the next example, where we’ll
+perform hierarchical clustering within each species.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Note that this is also
+how functions like lapply() work.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">flply</span>(f, <span class="at">FUN =</span> <span class="cf">function</span>(d) {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  dm <span class="ot">&lt;-</span> <span class="fu">dist</span>(d[, <span class="sc">-</span><span class="dv">1</span>]) <span class="co"># Compute the distance matrix, excluding the first field</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">hclust</span>(dm) <span class="co"># Perform the clustering and return the object</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>})</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># The `cluster` variable contains one &quot;hclust&quot; object for each species.</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Let&#39;s plot the &#39;setosa&#39; dendrogram</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">plot</span>(clusters<span class="sc">$</span>setosa)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>If <code>FUN</code> takes more than one argument, it is possible to
+pass any additional argument directly to flply(): they will be passed,
+in turn, to <code>FUN</code>. For instance, suppose that we want to use
+kmeans() instead of hclust(), and we want to specify the number of
+centroids as an additional parameter. In the next example we will also
+define <code>FUN</code> as a separate function before using it, rather
+than writing an anonymous function like in the previous example. The
+output will be a “kmeans” object for each species.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>kmeans_FUN <span class="ot">&lt;-</span> <span class="cf">function</span>(d, my_centers) {</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">kmeans</span>(d[, <span class="sc">-</span><span class="dv">1</span>], <span class="at">centers =</span> my_centers)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>}</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>my_centers <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># We pass `my_centers` to flply(), and flply() passes it to kmeans_FUN</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">flply</span>(f, <span class="at">FUN =</span> kmeans_FUN, my_centers)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co"># Let&#39;s display the centers of the &#39;setosa&#39; clusters</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>clusters<span class="sc">$</span>setosa<span class="sc">$</span>centers</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; 1     4.818182    3.236364     1.433333   0.2303030</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; 2     5.370588    3.800000     1.517647   0.2764706</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co"># Now let&#39;s do the same thing, but with three centers for each species</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>my_centers <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">flply</span>(f, <span class="at">FUN =</span> kmeans_FUN, my_centers)</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>clusters<span class="sc">$</span>setosa<span class="sc">$</span>centers</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; 1     5.512500    4.000000     1.475000    0.275000</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; 2     5.100000    3.513043     1.526087    0.273913</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; 3     4.678947    3.084211     1.378947    0.200000</span></span></code></pre></div>
+<p>The last example of this section may be a bit surprising. Since, in
+R, <code>[[</code> is a function, nothing prevents us from using it as
+<code>FUN</code> to select only, say, the second column of each block.
+Admittedly, however, in this case it would be better to use the
+<code>select</code> option (see <code>?flply</code> and
+<code>?fread</code>, or wait for the <a href="#options">Other
+options</a> subsection).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>sepal_length <span class="ot">&lt;-</span> <span class="fu">flply</span>(f, <span class="st">`</span><span class="at">[[</span><span class="st">`</span>, <span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co"># Now `sepal_length` contains all the sepal lengths, divided by species</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>sepal_length</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; $setosa</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1 5.7</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [20] 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0 5.5 4.9</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; [39] 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; $versicolor</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;  [1] 7.0 6.4 6.9 5.5 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [20] 5.6 5.9 6.1 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [39] 5.6 5.5 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; $virginica</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  [1] 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; [20] 6.0 6.9 5.6 7.7 6.3 6.7 7.2 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; [39] 6.0 6.9 6.7 6.9 5.8 6.8 6.7 6.7 6.3 6.5 6.2 5.9</span></span></code></pre></div>
 <div id="naming-convention" class="section level3">
 <h3>Naming convention</h3>
-<p>We followed the same convention of the <code>plyr</code> package. The name of each function consists of two letters followed by ‘ply’: the first letter represent the type of input, whereas the second letter characterizes the type of output, and the final ‘ply’ clinches the relation with the existing ‘apply’ family of functions. The first letter is usually ‘f’, because the input is the path to a file. The second letter is ‘l’ if the output is a list, as in flply(), it is ‘t’ if the output is a “data.table”, ‘f’ if the output is another file, and ‘m’ if the output can be multiple things.</p>
+<p>We followed the same convention of the <code>plyr</code> package. The
+name of each function consists of two letters followed by ‘ply’: the
+first letter represent the type of input, whereas the second letter
+characterizes the type of output, and the final ‘ply’ clinches the
+relation with the existing ‘apply’ family of functions. The first letter
+is usually ‘f’, because the input is the path to a file. The second
+letter is ‘l’ if the output is a list, as in flply(), it is ‘t’ if the
+output is a “data.table”, ‘f’ if the output is another file, and ‘m’ if
+the output can be multiple things.</p>
 </div>
 </div>
 <div id="ftply" class="section level2">
 <h2>ftply</h2>
-<p>Use ftply() to return a “data.table”; the rows corresponding to the different subjects will be <code>rbind</code>ed together. Needless to say, in this case <code>FUN</code> must return a “data.frame” or a “data.table”, while in flply() there was no such restriction. (When <code>fplyr</code> is loaded, the <code>data.table</code> package is loaded as well.) Moreover, in this case <code>FUN</code> has to take at least two arguments: the first one being a “data.table” corresponding to the current block being processed, and the second one being a character vector containing the subject ID. This is best explained with an example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">selected_flowers &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="cf">function</span>(d, by) {</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="cf">if</span> (by <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">return</span>(<span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="cf">else</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">return</span>(d)</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">})</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; Warning in ftply(f, function(d, by) {: Block 1 returned an empty data.table.</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co"># Let's have a look at the first few lines of the output; note that it start directly with 'versicolor', because all the 'setosa' flowers have been omitted</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="kw">head</span>(selected_flowers, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;       Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 1: versicolor          7.0         3.2          4.7         1.4</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 2: versicolor          6.4         3.2          4.5         1.5</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt; 3: versicolor          6.9         3.1          4.9         1.5</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt; 4: versicolor          5.5         2.3          4.0         1.3</span></a></code></pre></div>
-<p>Here, we are skipping the ‘setosa’ species. The result will be equal to the input, except that the rows corresponding to the setosa flowers will be omitted. Notice also that <code>fplyr</code> warns us that one block didn’t return any output. In general, the behavior of ftply() is equivalent to flply() followed by <code>rbind</code> on the resulting list.</p>
-<p>Importantly, the <code>d</code> argument to <code>FUN</code> contains a “data.table” of the current block being processed, but <em>without the first field</em>. This is just for efficiency concerns; the first field will be added back to the output of <code>FUN</code>. In fact, the following example will show that inside <code>FUN</code> the <code>d</code> data set has only four columns, whereas normally it would have five.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">count_cols &lt;-<span class="st"> </span><span class="cf">function</span>(d, by) {</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">  <span class="kw">ncol</span>(d)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">ftply</span>(f, count_cols)</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;       Species V1</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 1:     setosa  4</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 2: versicolor  4</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 3:  virginica  4</span></a></code></pre></div>
+<p>Use ftply() to return a “data.table”; the rows corresponding to the
+different subjects will be <code>rbind</code>ed together. Needless to
+say, in this case <code>FUN</code> must return a “data.frame” or a
+“data.table”, while in flply() there was no such restriction. (When
+<code>fplyr</code> is loaded, the <code>data.table</code> package is
+loaded as well.) Moreover, in this case <code>FUN</code> has to take at
+least two arguments: the first one being a “data.table” corresponding to
+the current block being processed, and the second one being a character
+vector containing the subject ID. This is best explained with an
+example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>selected_flowers <span class="ot">&lt;-</span> <span class="fu">ftply</span>(f, <span class="cf">function</span>(d, by) {</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="cf">if</span> (by <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="cf">else</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    <span class="fu">return</span>(d)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>})</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; Warning in ftply(f, function(d, by) {: Block setosa returned an empty</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; data.table.</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co"># Let&#39;s have a look at the first few lines of the output; note that it start directly with &#39;versicolor&#39;, because all the &#39;setosa&#39; flowers have been omitted</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fu">head</span>(selected_flowers, <span class="dv">4</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;       Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 1: versicolor          7.0         3.2          4.7         1.4</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; 2: versicolor          6.4         3.2          4.5         1.5</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; 3: versicolor          6.9         3.1          4.9         1.5</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; 4: versicolor          5.5         2.3          4.0         1.3</span></span></code></pre></div>
+<p>Here, we are skipping the ‘setosa’ species. The result will be equal
+to the input, except that the rows corresponding to the setosa flowers
+will be omitted. Notice also that <code>fplyr</code> warns us that one
+block didn’t return any output. In general, the behavior of ftply() is
+equivalent to flply() followed by <code>rbind</code> on the resulting
+list.</p>
+<p>Importantly, the <code>d</code> argument to <code>FUN</code> contains
+a “data.table” of the current block being processed, but <em>without the
+first field</em>. This is just for efficiency concerns; the first field
+will be added back to the output of <code>FUN</code>. In fact, the
+following example will show that inside <code>FUN</code> the
+<code>d</code> data set has only four columns, whereas normally it would
+have five.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>count_cols <span class="ot">&lt;-</span> <span class="cf">function</span>(d, by) {</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">ncol</span>(d)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>}</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">ftply</span>(f, count_cols)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt;       Species V1</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 1:     setosa  4</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; 2: versicolor  4</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 3:  virginica  4</span></span></code></pre></div>
 <div id="the-nblocks-option" class="section level3">
 <h3>The <code>nblocks</code> option</h3>
-<p>ftply() can also be used to quickly glance at the data, much like one would use the head() function. Indeed, we can specify the <code>nblocks</code> option to select only the first block; thus, we can see what the data look like without loading the whole file into memory. By default, in ftply() <code>FUN</code> returns the data without modifying them, so in this case we can avoid specifying <code>FUN</code>. Incidentally, all the other functions support the <code>nblocks</code> option as well; it is intended to be the analogous of <code>nrows</code> in read.table() and fread().</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">flowers_head &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="dt">nblocks =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co"># Now `flowers_head` has 50 observations, while the original data set had 150. Let's have a look at the first ones.</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">head</span>(flowers_head, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></a></code></pre></div>
+<p>ftply() can also be used to quickly glance at the data, much like one
+would use the head() function. Indeed, we can specify the
+<code>nblocks</code> option to select only the first block; thus, we can
+see what the data look like without loading the whole file into memory.
+By default, in ftply() <code>FUN</code> returns the data without
+modifying them, so in this case we can avoid specifying
+<code>FUN</code>. Incidentally, all the other functions support the
+<code>nblocks</code> option as well; it is intended to be the analogous
+of <code>nrows</code> in read.table() and fread().</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>flowers_head <span class="ot">&lt;-</span> <span class="fu">ftply</span>(f, <span class="at">nblocks =</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># Now `flowers_head` has 50 observations, while the original data set had 150. Let&#39;s have a look at the first ones.</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">head</span>(flowers_head, <span class="dv">4</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;    Species Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 1:  setosa          5.1         3.5          1.4         0.2</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 2:  setosa          4.9         3.0          1.4         0.2</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; 3:  setosa          4.7         3.2          1.3         0.2</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; 4:  setosa          4.6         3.1          1.5         0.2</span></span></code></pre></div>
 </div>
 <div id="parallelization" class="section level3">
 <h3>Parallelization</h3>
-<p>Another useful option is <code>parallel</code>, with which it is possible to specify the number of threads that <code>fplyr</code> can use. Like <code>nblocks</code>, also the <code>parallel</code> option is supported by all the functions. It is not necessary to initialize any cluster, but this option has effect only on Unix-like systems, not on Windows. In the following example we will select, for each block, a random sample of 10 observations.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">result &lt;-<span class="st"> </span><span class="kw">ftply</span>(f, <span class="dt">parallel =</span> <span class="dv">3</span>, <span class="dt">FUN =</span> <span class="cf">function</span>(d, by) {</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">  d[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(d), <span class="dv">10</span>), ]</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">})</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># Let's check that the output has 30 rows (10 for each species)</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw">nrow</span>(result)</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; [1] 30</span></a></code></pre></div>
+<p>Another useful option is <code>parallel</code>, with which it is
+possible to specify the number of threads that <code>fplyr</code> can
+use. Like <code>nblocks</code>, also the <code>parallel</code> option is
+supported by all the functions. It is not necessary to initialize any
+cluster, but this option has effect only on Unix-like systems, not on
+Windows. In the following example we will select, for each block, a
+random sample of 10 observations.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">ftply</span>(f, <span class="at">parallel =</span> <span class="dv">3</span>, <span class="at">FUN =</span> <span class="cf">function</span>(d, by) {</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  d[<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(d), <span class="dv">10</span>), ]</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>})</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co"># Let&#39;s check that the output has 30 rows (10 for each species)</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">nrow</span>(result)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; [1] 30</span></span></code></pre></div>
 </div>
 </div>
 <div id="ffply" class="section level2">
 <h2>ffply</h2>
-<p>This package was born to deal with files that are too big to fit into the available RAM. With <code>fplyr</code>, it is easy to process such files, but what if even the output of the processing is too big for the memory? One solution could be to write the output to a file as soon as it is generated, without ever returning it. This solution is implemented in the ffply() function, but it works only if <code>FUN</code> returns a “data.table” or “data.frame”. It is equivalent to calling ftply() followed by write.table() or fread(). This function supports one additional argument with respect to the previously described functions: the path to the output file. In the example, we will replace the original observations with their principal components, block by block.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">out &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># Create temporary output file</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">ffply</span>(f, out, <span class="cf">function</span>(d, by) {</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="co"># Here, `d` does not contain the subject IDs; they will be automatically added back later</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  x &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d)<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="kw">as.data.table</span>(x)</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">})</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co"># Let's check the result. Note in particular that the subject IDs are present</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="kw">fread</span>(out, <span class="dt">nrows =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;    Species        PC1         PC2         PC3          PC4</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt; 1:  setosa -0.1068424 -0.02489398  0.08216974 -0.034541755</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; 2:  setosa  0.3940472  0.16586593  0.13148092 -0.017551195</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt; 3:  setosa  0.3906877 -0.12685112  0.07181182  0.009744303</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; 4:  setosa  0.5117016 -0.02656106 -0.11121361 -0.032673214</span></a></code></pre></div>
-<p>For ffply(), <code>FUN</code> must take two arguments, like in ftply(). The return value of ffply() is the number of processed blocks.</p>
+<p>This package was born to deal with files that are too big to fit into
+the available RAM. With <code>fplyr</code>, it is easy to process such
+files, but what if even the output of the processing is too big for the
+memory? One solution could be to write the output to a file as soon as
+it is generated, without ever returning it. This solution is implemented
+in the ffply() function, but it works only if <code>FUN</code> returns a
+“data.table” or “data.frame”. It is equivalent to calling ftply()
+followed by write.table() or fread(). This function supports one
+additional argument with respect to the previously described functions:
+the path to the output file. In the example, we will replace the
+original observations with their principal components, block by
+block.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">tempfile</span>() <span class="co"># Create temporary output file</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">ffply</span>(f, out, <span class="cf">function</span>(d, by) {</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="co"># Here, `d` does not contain the subject IDs; they will be automatically added back later</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(d)<span class="sc">$</span>x</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">as.data.table</span>(x)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>})</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co"># Let&#39;s check the result. Note in particular that the subject IDs are present</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="fu">fread</span>(out, <span class="at">nrows =</span> <span class="dv">4</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;    Species        PC1         PC2         PC3          PC4</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 1:  setosa -0.1068424 -0.02489398  0.08216974 -0.034541755</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; 2:  setosa  0.3940472  0.16586593  0.13148092 -0.017551195</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt; 3:  setosa  0.3906877 -0.12685112  0.07181182  0.009744303</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 4:  setosa  0.5117016 -0.02656106 -0.11121361 -0.032673214</span></span></code></pre></div>
+<p>For ffply(), <code>FUN</code> must take two arguments, like in
+ftply(). The return value of ffply() is the number of processed
+blocks.</p>
 <div id="options" class="section level3">
 <h3>Other options</h3>
-<p>Besides the options we have already discussed, such as <code>nblocks</code> and <code>parallel</code>, all the functions in the package support a set of core options that modify how the file is read. These options are as follows.</p>
+<p>Besides the options we have already discussed, such as
+<code>nblocks</code> and <code>parallel</code>, all the functions in the
+package support a set of core options that modify how the file is read.
+These options are as follows.</p>
 <ul>
-<li><code>key.sep</code> The character that delimits the first field from the rest [default: “\t”].</li>
-<li><code>sep</code> The field delimiter (often equal to <code>key.sep</code>) [default: “\t”].</li>
-<li><code>skip</code> Number of lines to skip at the beginning of the file [default: 0].</li>
-<li><code>header</code> Whether the file has a header [default: TRUE].</li>
-<li><code>nblocks</code> The number of blocks to read [default: Inf].</li>
-<li><code>stringsAsFactors</code> Whether to convert strings into factors [default: FALSE].</li>
-<li><code>colClasses</code> Vector or list specifying the class of each field [default: NULL].</li>
-<li><code>select</code> The columns (names or numbers) to be read [default: NULL].</li>
-<li><code>drop</code> The columns (names or numbers) not to be read [default: NULL].</li>
+<li><code>key.sep</code> The character that delimits the first field
+from the rest [default: “\t”].</li>
+<li><code>sep</code> The field delimiter (often equal to
+<code>key.sep</code>) [default: “\t”].</li>
+<li><code>skip</code> Number of lines to skip at the beginning of the
+file [default: 0].</li>
+<li><code>header</code> Whether the file has a header [default:
+TRUE].</li>
+<li><code>nblocks</code> The number of blocks to read [default:
+Inf].</li>
+<li><code>stringsAsFactors</code> Whether to convert strings into
+factors [default: FALSE].</li>
+<li><code>colClasses</code> Vector or list specifying the class of each
+field [default: NULL].</li>
+<li><code>select</code> The columns (names or numbers) to be read
+[default: NULL].</li>
+<li><code>drop</code> The columns (names or numbers) not to be read
+[default: NULL].</li>
 <li><code>col.names</code> Names of the columns [default: NULL].</li>
 </ul>
-<p>With the exception of <code>key.sep</code>, all these options are comprehensively documented in the help page of <code>data.table</code>‘s fread() function (<code>?fread</code>). For <code>key.sep</code>, see the help page of <code>iotools</code>’ read.chunk() (<code>?read.chunk</code>).</p>
+<p>With the exception of <code>key.sep</code>, all these options are
+comprehensively documented in the help page of <code>data.table</code>‘s
+fread() function (<code>?fread</code>). For <code>key.sep</code>, see
+the help page of <code>iotools</code>’ read.chunk()
+(<code>?read.chunk</code>).</p>
 </div>
 </div>
 <div id="fmply" class="section level2">
 <h2>fmply</h2>
-<p>For the last function, suppose that the analysis of each block produces several output files; for instance, we may want to compute the principal components as well as a nonlinear transformation of the variables, for each block, and save them to two separate output files. In this case, we can use fmply(). Like ftply(), it too supports the <code>output</code> option, but this time it can be a vector of many paths. Accordingly, <code>FUN</code> should now return a list of “data.table”s, one for each of the output files.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">out &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dt">pca =</span> <span class="kw">tempfile</span>(), <span class="dt">transf =</span> <span class="kw">tempfile</span>())</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co"># Note that the vector needs not be named, we use these names just for convenience</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">analyze_block &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">  <span class="co"># Here, `d` does contain the subject IDs, so we have to remove them...</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">  x &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d[, <span class="dv">-1</span>])<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7">  <span class="co"># ...and add them back manually</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8">  x &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], x)</a>
-<a class="sourceLine" id="cb11-9" data-line-number="9">  <span class="co"># Transform each number 'z' into e^(-z)</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10">  y &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], <span class="kw">exp</span>(<span class="op">-</span>d[, <span class="dv">-1</span>]))</a>
-<a class="sourceLine" id="cb11-11" data-line-number="11">  <span class="co"># Return a list of two &quot;data.table&quot;s</span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12">  <span class="kw">list</span>(x, y)</a>
-<a class="sourceLine" id="cb11-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb11-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="kw">fmply</span>(f, out, analyze_block)</a></code></pre></div>
-<p>Notice that, contrary to ffply(), <code>FUN</code> takes only one argument, and it is the full block, including the first field. Therefore, we had to remove this field when we computed the principal components, and add it back at the end. (In ffply() and ftply() this is done automatically.) Moreover, <code>FUN</code> should now return two values, the first of which is printed to the first output file, and the second of which is printed to the second output file. There is no limit to the number of output files, but the order of the output files and of the values returned by <code>FUN</code> must match (named vectors and lists are not taken into account at the moment).</p>
-<p>Sometimes it is also necessary to return objects that are not printable as “data.table”s. For instance, suppose that, besides printing the principal components to the output file, we also wanted to return the <code>&quot;prcomp&quot;</code> object. In these cases, fmply() is still helpful, because it allows <code>FUN</code> to return one more element, which in turn will be returned by fmply(). For example, consider the following modification of analyze_block():</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">analyze_block2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">  pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(d[, <span class="dv">-1</span>])</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  x &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], pca<span class="op">$</span>x)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">  y &lt;-<span class="st"> </span><span class="kw">cbind</span>(d[, <span class="dv">1</span>], <span class="kw">exp</span>(<span class="op">-</span>d[, <span class="dv">-1</span>]))</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">  <span class="co"># 'x' and 'y' are the same as before, but now we add the 'pca' object</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="kw">list</span>(x, y, pca)</a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">iris_pca &lt;-<span class="st"> </span><span class="kw">fmply</span>(f, out, analyze_block2)</a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co"># Let's have a look at the screeplot of the 'versicolor' PCA</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="kw">screeplot</span>(iris_pca<span class="op">$</span>versicolor)</a></code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
-<p>Here, <code>FUN</code> returns three arguments, but there are only two output files. The third value returned by <code>FUN</code>, then, is returned at the end by fmply(). In particular, the variable <code>iris_pca</code> will be a list of three <code>&quot;prcomp&quot;</code> objects, one for each species.</p>
+<p>For the last function, suppose that the analysis of each block
+produces several output files; for instance, we may want to compute the
+principal components as well as a nonlinear transformation of the
+variables, for each block, and save them to two separate output files.
+In this case, we can use fmply(). Like ftply(), it too supports the
+<code>output</code> option, but this time it can be a vector of many
+paths. Accordingly, <code>FUN</code> should now return a list of
+“data.table”s, one for each of the output files.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">pca =</span> <span class="fu">tempfile</span>(), <span class="at">transf =</span> <span class="fu">tempfile</span>())</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co"># Note that the vector needs not be named, we use these names just for convenience</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>analyze_block <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="co"># Here, `d` does contain the subject IDs, so we have to remove them...</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(d[, <span class="sc">-</span><span class="dv">1</span>])<span class="sc">$</span>x</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="co"># ...and add them back manually</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d[, <span class="dv">1</span>], x)</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  <span class="co"># Transform each number &#39;z&#39; into e^(-z)</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d[, <span class="dv">1</span>], <span class="fu">exp</span>(<span class="sc">-</span>d[, <span class="sc">-</span><span class="dv">1</span>]))</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  <span class="co"># Return a list of two &quot;data.table&quot;s</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="fu">list</span>(x, y)</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>}</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="fu">fmply</span>(f, out, analyze_block)</span></code></pre></div>
+<p>Notice that, contrary to ffply(), <code>FUN</code> takes only one
+argument, and it is the full block, including the first field.
+Therefore, we had to remove this field when we computed the principal
+components, and add it back at the end. (In ffply() and ftply() this is
+done automatically.) Moreover, <code>FUN</code> should now return two
+values, the first of which is printed to the first output file, and the
+second of which is printed to the second output file. There is no limit
+to the number of output files, but the order of the output files and of
+the values returned by <code>FUN</code> must match (named vectors and
+lists are not taken into account at the moment).</p>
+<p>Sometimes it is also necessary to return objects that are not
+printable as “data.table”s. For instance, suppose that, besides printing
+the principal components to the output file, we also wanted to return
+the <code>&quot;prcomp&quot;</code> object. In these cases, fmply() is still
+helpful, because it allows <code>FUN</code> to return one more element,
+which in turn will be returned by fmply(). For example, consider the
+following modification of analyze_block():</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>analyze_block2 <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(d[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d[, <span class="dv">1</span>], pca<span class="sc">$</span>x)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">cbind</span>(d[, <span class="dv">1</span>], <span class="fu">exp</span>(<span class="sc">-</span>d[, <span class="sc">-</span><span class="dv">1</span>]))</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  <span class="co"># &#39;x&#39; and &#39;y&#39; are the same as before, but now we add the &#39;pca&#39; object</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="fu">list</span>(x, y, pca)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>}</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>iris_pca <span class="ot">&lt;-</span> <span class="fu">fmply</span>(f, out, analyze_block2)</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co"># Let&#39;s have a look at the screeplot of the &#39;versicolor&#39; PCA</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="fu">screeplot</span>(iris_pca<span class="sc">$</span>versicolor)</span></code></pre></div>
+<p><img src="data:image/png;base64,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KSkp/IFoy4MHD559I0eOHLl///6zbwfXr183MTHRdRXlofcBb2xp7+iormJWlqmG7Ozse/fuaept2rSpp6dn+apo1qxZr1691Gp1+VZHEdOnT1conunBRe++++6xY8e0Vc9/XNu2bZ9xLtfd3X3YsGE5OTnaKuk/bsSIEa6urs+yhZ49e0ZERGirnv84e3v7Vq1a6bqK8lAQWgAAyIdz8AAASEh/puh5XSwAAFqjHwHP62IBANAqfZii53WxAABomR5cZBc7s1nt//OPuPT462ILqK/9X6D3JK/1KYt4XSwAAGWlB0fwvC4WAABt04OA53WxAABomx5M0YuU7YMaBS9Ka9ZH0+tim84+vvd9XigHAECZ6UPAC5FzY+vU4R/N2nLxfjGvi50655uBTax1UxgAAJWTfgR8nixeFwsAgHboU8ADAAAt4fAYAAAJEfAAAEiIgAcAQEIEPAAAEiLgAQCQEAEPAICECHgAACREwAMAICECHgAACRHwAABIiIAHAEBCBDwAABIi4AEAkBABDwCAhAh4AAAkRMADACAhAh4AAAkR8AAASIiABwBAQgQ8AAASIuABAJAQAQ8AgIQIeAAAJETAAwAgIQIeAAAJEfAAAEiIgAcAQEIEPAAAEiLgAQCQEAEPAICECHgAACREwAMAICECHgAACRHwAABIiIAHAEBCBDwAABIi4AEAkBABDwCAhAh4AAAkRMADACAhAh4AAAkR8AAASIiABwBAQgQ8AAASIuABAJAQAQ8AgIQIeAAAJETAAwAgIQIeAAAJEfAAAEiIgAcAQEIEPAAAEiLgAQCQEAEPAICECHgAACREwAMAICECHgAACRHwAABIiIAHAEBCBDwAABIi4AEAkBABDwCAhAh4AAAkRMADACAhAh4AAAkR8AAASIiABwBAQgQ8AAASIuABAJAQAQ8AgIQIeAAAJETAAwAgIQIeAAAJEfAAAEiIgAcAQEIEPAAAEiLgAQCQEAEPAICECHgAACREwAMAICECHgAACRHwAABIiIAHAEBCBDwAABIi4AEAkBABDwCAhAh4AAAk9P9P/woaLH+LVgAAAABJRU5ErkJggg==" style="display: block; margin: auto;" /></p>
+<p>Here, <code>FUN</code> returns three arguments, but there are only
+two output files. The third value returned by <code>FUN</code>, then, is
+returned at the end by fmply(). In particular, the variable
+<code>iris_pca</code> will be a list of three <code>&quot;prcomp&quot;</code>
+objects, one for each species.</p>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Actually, it is a bit more complicated than that: the <code>iotools</code> package takes care of the reading, so the file is read chunk by chunk, not block by block, and then the chunk is split into its constituent blocks; you can read more about how <code>iotools</code> reads files in the help page of the chunk.reader() function.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Yes, I know this clustering is pointless, but the example is just meant to illustrate the kind of things that one can do, provided that he or she has access to more appropriate data sets.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Actually, it is a bit more complicated than that: the
+<code>iotools</code> package takes care of the reading, so the file is
+read chunk by chunk, not block by block, and then the chunk is split
+into its constituent blocks; you can read more about how
+<code>iotools</code> reads files in the help page of the chunk.reader()
+function.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Yes, I know this clustering is pointless, but the
+example is just meant to illustrate the kind of things that one can do,
+provided that he or she has access to more appropriate data sets.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
