@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   fig.width = 7,
@@ -7,8 +7,9 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ----setup, include = FALSE---------------------------------------------------
+## ----setup, include = TRUE----------------------------------------------------
 library(fplyr)
+library(data.table)
 
 ## ----store_path---------------------------------------------------------------
 f <- system.file("extdata", "dt_iris.csv", package = "fplyr")
